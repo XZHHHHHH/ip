@@ -27,10 +27,27 @@ public class ZH9072Bot {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 for(int i = 0; i < taskCount; i++) {
                     int number = i + 1;
                     System.out.println(number + "." + tasks[i]);
                 }
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("mark")) {
+                String inputNum = input.split(" ")[1];
+                int taskId = Integer.parseInt(inputNum)- 1;
+                tasks[taskId].markDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks[taskId].toString());
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("unmark")) {
+                String inputNum = input.split(" ")[1];
+                int taskId = Integer.parseInt(inputNum)- 1;
+                tasks[taskId].unMark();
+                System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks[taskId].toString());
                 System.out.println("____________________________________________________________");
             } else {
                 tasks[taskCount] = new Task(input);
