@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ZH9072Bot {
     public static void main(String[] args) {
@@ -14,8 +15,7 @@ public class ZH9072Bot {
         System.out.println(line);
 
         Scanner sc = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while(true) {
             String input;
@@ -29,28 +29,27 @@ public class ZH9072Bot {
                 } else if (input.equals("list")) {
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
-                    for(int i = 0; i < taskCount; i++) {
-                        int number = i + 1;
-                        System.out.println(number + "." + tasks[i]);
+                    for(int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                     System.out.println(line);
                 } else if (input.startsWith("mark ")) {
                     String inputNum = input.split(" ")[1];
                     int taskId = Integer.parseInt(inputNum)- 1;
-                    tasks[taskId].markDone();
+                    tasks.get(taskId).markDone();
 
                     System.out.println(line);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[taskId].toString());
+                    System.out.println("  " + tasks.get(taskId));
                     System.out.println(line);
                 } else if (input.startsWith("unmark ")) {
                     String inputNum = input.split(" ")[1];
                     int taskId = Integer.parseInt(inputNum)- 1;
-                    tasks[taskId].unMark();
+                    tasks.get(taskId).unMark();
 
                     System.out.println(line);
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[taskId].toString());
+                    System.out.println("  " + tasks.get(taskId));
                     System.out.println(line);
                 } else if (input.startsWith("todo") || input.equals("todo")) {
                     if (input.length() <= 4) {
@@ -61,26 +60,23 @@ public class ZH9072Bot {
                         throw new BotException("Oops — please add some content after 'todo'.");
                     }
                     
-                    tasks[taskCount] = new ToDo(restContent);
-                    taskCount++;
-
+                    tasks.add(new ToDo(restContent));
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("deadline")) {
                     String restContent = input.split("deadline", 2)[1];
                     int byIndex = restContent.indexOf(" /by ");
                     String specificContent = restContent.substring(0, byIndex).trim();
                     String by = restContent.split("/by", 2)[1];
-                    tasks[taskCount] = new Deadline(specificContent, by);
-                    taskCount++;
+                    tasks.add(new Deadline(specificContent, by));
 
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("event")) {
                     String restContent = input.split("event", 2)[1];
@@ -90,13 +86,22 @@ public class ZH9072Bot {
                     String from = restContent.substring(fromIndex + 7, toIndex).trim();
                     String to = restContent.substring(toIndex + 5).trim();
 
-                    tasks[taskCount] = new Event(specificContent, from, to);
-                    taskCount++;
+                    tasks.add(new Event(specificContent, from, to));
 
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(line);
+                } else if (input.startsWith("delete ")) {
+                    String inputNum = (input.split(" ")[1]);
+                    int taskId = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task removed = tasks.remove(taskId);
+
+                    System.out.println(line);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removed);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else {
                     throw new BotException("Sorry, I don't understand your command. Please try again.");
