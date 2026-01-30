@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class ZH9072Bot {
     public static void main(String[] args) {
@@ -16,6 +17,15 @@ public class ZH9072Bot {
 
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage();
+
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println(line);
+            System.out.println("Warning: failed to load saved tasks. Starting with an empty list.");
+            System.out.println(line);
+        }
 
         while(true) {
             String input;
@@ -37,6 +47,7 @@ public class ZH9072Bot {
                     String inputNum = input.split(" ")[1];
                     int taskId = Integer.parseInt(inputNum)- 1;
                     tasks.get(taskId).markDone();
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("Nice! I've marked this task as done:");
@@ -45,7 +56,8 @@ public class ZH9072Bot {
                 } else if (input.startsWith("unmark ")) {
                     String inputNum = input.split(" ")[1];
                     int taskId = Integer.parseInt(inputNum)- 1;
-                    tasks.get(taskId).unMark();
+                    tasks.get(taskId).markUndone();
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -59,8 +71,9 @@ public class ZH9072Bot {
                     if (restContent.isEmpty()) {
                         throw new BotException("Oops — please add some content after 'todo'.");
                     }
-                    
+
                     tasks.add(new ToDo(restContent));
+                    storage.save(tasks);
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks.get(tasks.size() - 1));
@@ -72,6 +85,7 @@ public class ZH9072Bot {
                     String specificContent = restContent.substring(0, byIndex).trim();
                     String by = restContent.split("/by", 2)[1];
                     tasks.add(new Deadline(specificContent, by));
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
@@ -87,6 +101,7 @@ public class ZH9072Bot {
                     String to = restContent.substring(toIndex + 5).trim();
 
                     tasks.add(new Event(specificContent, from, to));
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");
@@ -97,6 +112,7 @@ public class ZH9072Bot {
                     String inputNum = (input.split(" ")[1]);
                     int taskId = Integer.parseInt(input.split(" ")[1]) - 1;
                     Task removed = tasks.remove(taskId);
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("Noted. I've removed this task:");
@@ -110,9 +126,13 @@ public class ZH9072Bot {
                 System.out.println(line);
                 System.out.println(e.getMessage());
                 System.out.println(line);
+            } catch (IOException e) {
+                System.out.println(line);
+                System.out.println("Oops! I could not save your tasks to disk.");
+                System.out.println(line);
             }
         }
 
-        
+
     }
 }
