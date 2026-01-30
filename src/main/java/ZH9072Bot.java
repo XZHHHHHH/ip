@@ -132,7 +132,5 @@ public class ZH9072Bot {
                 System.out.println(line);
             }
         }
-
-
     }
 }

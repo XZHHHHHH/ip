@@ -30,7 +30,7 @@ public class Task {
         this.isDone = false;
     }
 
-    protected String getStatusIcon() {
+    public String getStatusIcon() {
         if (isDone) {
             return "[X]";
         } else {
