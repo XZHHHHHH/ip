@@ -1,3 +1,5 @@
+package ZH9072.Tasks;
+
 /**
  * Represents a task with content and a completion status.
  */
