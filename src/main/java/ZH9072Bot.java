@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class ZH9072Bot {
     public static void main(String[] args) {
@@ -80,12 +81,11 @@ public class ZH9072Bot {
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("deadline")) {
-                    String restContent = input.split("deadline", 2)[1];
-                    int byIndex = restContent.indexOf(" /by ");
-                    String specificContent = restContent.substring(0, byIndex).trim();
-                    String by = restContent.split("/by", 2)[1];
-                    tasks.add(new Deadline(specificContent, by));
-                    storage.save(tasks);
+                    String[] parts = input.split(" /by ");
+                    String description = parts[0].substring(9); // remove "deadline "
+                    LocalDate by = LocalDate.parse(parts[1]);
+                    Deadline d = new Deadline(description, by);
+                    tasks.add(d);
 
                     System.out.println(line);
                     System.out.println("Got it. I've added this task:");

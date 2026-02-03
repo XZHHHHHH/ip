@@ -1,31 +1,27 @@
-/**
- * Represents a deadline task.
- */
-public class Deadline extends Task {
-    private final String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String content, String by) {
+public class Deadline extends Task {
+    protected LocalDate by;
+
+    private static final DateTimeFormatter OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+    public Deadline(String content, LocalDate by) {
         super(content);
         this.by = by;
     }
 
-    public String getBy() {
-        return by;
+    @Override
+    public String toString() {
+        return "[D]" + super.toString()
+                + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 
     @Override
     public String toStorageString() {
-        String doneFlag;
-        if (isDone()) {
-            doneFlag = "1";
-        } else {
-            doneFlag = "0";
-        }
-        return "D | " + doneFlag + " | " + getContent() + " | " + by;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "D | " + (isDone ? "1" : "0")
+                + " | " + getContent()
+                + " | " + by.toString(); // yyyy-MM-dd
     }
 }
