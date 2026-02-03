@@ -20,9 +20,14 @@ public class Storage {
         this(DEFAULT_PATH);
     }
 
+    public Storage(String filePath) {
+        this(Paths.get(filePath));
+    }
+
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
+
 
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();

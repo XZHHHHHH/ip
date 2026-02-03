@@ -1,136 +1,98 @@
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ZH9072Bot {
-    public static void main(String[] args) {
-        String line = "____________________________________________________________";
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(line);
-        System.out.println("Hello! I'm ZH9072Bot");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
 
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        Storage storage = new Storage();
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+    private final Parser parser;
 
+    public ZH9072Bot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        parser = new Parser();
+
+        TaskList loaded;
         try {
-            tasks = storage.load();
+            ArrayList<Task> loadedTasks = storage.load();
+            loaded = new TaskList(loadedTasks);
         } catch (IOException e) {
-            System.out.println(line);
-            System.out.println("Warning: failed to load saved tasks. Starting with an empty list.");
-            System.out.println(line);
+            ui.showLoadingError();
+            loaded = new TaskList();
         }
+        tasks = loaded;
+    }
 
-        while(true) {
-            String input;
-            input = sc.nextLine();
+    public void run() {
+        ui.showWelcome();
+
+        while (true) {
+            String input = ui.readCommand();
+
             try {
-                if (input.equals("bye")) {
-                    System.out.println(line);
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println(line);
-                    break;
-                } else if (input.equals("list")) {
-                    System.out.println(line);
-                    System.out.println("Here are the tasks in your list:");
-                    for(int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i));
-                    }
-                    System.out.println(line);
-                } else if (input.startsWith("mark ")) {
-                    String inputNum = input.split(" ")[1];
-                    int taskId = Integer.parseInt(inputNum)- 1;
-                    tasks.get(taskId).markDone();
-                    storage.save(tasks);
+                Parser.Command cmd = parser.parse(input);
 
-                    System.out.println(line);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks.get(taskId));
-                    System.out.println(line);
-                } else if (input.startsWith("unmark ")) {
-                    String inputNum = input.split(" ")[1];
-                    int taskId = Integer.parseInt(inputNum)- 1;
-                    tasks.get(taskId).markUndone();
-                    storage.save(tasks);
+                switch (cmd.type) {
+                    case BYE:
+                        ui.showBye();
+                        return;
 
-                    System.out.println(line);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks.get(taskId));
-                    System.out.println(line);
-                } else if (input.startsWith("todo") || input.equals("todo")) {
-                    if (input.length() <= 4) {
-                        throw new BotException("Oops — please add some content after 'todo'.");
-                    }
-                    String restContent = input.split("todo ", 2)[1];
-                    if (restContent.isEmpty()) {
-                        throw new BotException("Oops — please add some content after 'todo'.");
-                    }
+                    case LIST:
+                        ui.showList(tasks);
+                        break;
 
-                    tasks.add(new ToDo(restContent));
-                    storage.save(tasks);
-                    System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
-                } else if (input.startsWith("deadline")) {
-                    String[] parts = input.split(" /by ");
-                    String description = parts[0].substring(9); // remove "deadline "
-                    LocalDate by = LocalDate.parse(parts[1]);
-                    Deadline d = new Deadline(description, by);
-                    tasks.add(d);
+                    case MARK:
+                        tasks.get(cmd.index).markDone();
+                        storage.save(tasks.asList());
+                        ui.showMarked(tasks.get(cmd.index), true);
+                        break;
 
-                    System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
-                } else if (input.startsWith("event")) {
-                    String restContent = input.split("event", 2)[1];
-                    int fromIndex = restContent.indexOf(" /from ");
-                    int toIndex = restContent.indexOf(" /to ");
-                    String specificContent = restContent.substring(0, fromIndex).trim();
-                    String from = restContent.substring(fromIndex + 7, toIndex).trim();
-                    String to = restContent.substring(toIndex + 5).trim();
+                    case UNMARK:
+                        tasks.get(cmd.index).markUndone();
+                        storage.save(tasks.asList());
+                        ui.showMarked(tasks.get(cmd.index), false);
+                        break;
 
-                    tasks.add(new Event(specificContent, from, to));
-                    storage.save(tasks);
+                    case TODO:
+                        tasks.add(new ToDo(cmd.description));
+                        storage.save(tasks.asList());
+                        ui.showAdded(tasks);
+                        break;
 
-                    System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
-                } else if (input.startsWith("delete ")) {
-                    String inputNum = (input.split(" ")[1]);
-                    int taskId = Integer.parseInt(input.split(" ")[1]) - 1;
-                    Task removed = tasks.remove(taskId);
-                    storage.save(tasks);
+                    case DEADLINE:
+                        tasks.add(new Deadline(cmd.description, cmd.by)); // LocalDate
+                        storage.save(tasks.asList());
+                        ui.showAdded(tasks);
+                        break;
 
-                    System.out.println(line);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println("  " + removed);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
-                } else {
-                    throw new BotException("Sorry, I don't understand your command. Please try again.");
+                    case EVENT:
+                        tasks.add(new Event(cmd.description, cmd.from, cmd.to));
+                        storage.save(tasks.asList());
+                        ui.showAdded(tasks);
+                        break;
+
+                    case DELETE:
+                        Task removed = tasks.remove(cmd.index);
+                        storage.save(tasks.asList());
+                        ui.showDeleted(removed, tasks);
+                        break;
+
+                    default:
+                        throw new BotException("Sorry, I don't understand your command. Please try again.");
                 }
+
             } catch (BotException e) {
-                System.out.println(line);
-                System.out.println(e.getMessage());
-                System.out.println(line);
+                ui.showError(e.getMessage());
             } catch (IOException e) {
-                System.out.println(line);
-                System.out.println("Oops! I could not save your tasks to disk.");
-                System.out.println(line);
+                ui.showSaveError();
+            } catch (IndexOutOfBoundsException e) {
+                ui.showError("Index is out of range.");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new ZH9072Bot("data/duke.txt").run();
     }
 }
