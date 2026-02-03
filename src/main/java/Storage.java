@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+
 
 /**
  * Handles loading and saving tasks to disk.
@@ -82,7 +84,8 @@ public class Storage {
             if (parts.length < 4) {
                 throw new IllegalArgumentException("Deadline corrupted");
             }
-            task = new Deadline(content, parts[3]);
+            LocalDate by = LocalDate.parse(parts[3]);
+            task = new Deadline(parts[2], by);
         } else if ("E".equals(type)) {
             if (parts.length < 5) {
                 throw new IllegalArgumentException("Event corrupted");

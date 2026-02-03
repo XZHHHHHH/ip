@@ -3,7 +3,7 @@
  */
 public class Task {
     private final String content;
-    private boolean isDone;
+    protected boolean isDone;
 
     public Task(String content) {
         this.content = content;
