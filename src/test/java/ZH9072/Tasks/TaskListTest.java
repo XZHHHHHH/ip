@@ -41,4 +41,28 @@ public class TaskListTest {
         assertEquals(1, list.size());
         assertEquals("[ ] seeded", list.get(0).toString());
     }
+
+    @Test
+    public void findByKeyword_matchesByDescriptionCaseInsensitive() {
+        TaskList list = new TaskList();
+        list.add(new Task("read Book"));
+        list.add(new Task("return book"));
+        list.add(new Task("clean room"));
+
+        List<Task> matches = list.findByKeyword("book");
+
+        assertEquals(2, matches.size());
+        assertEquals("[ ] read Book", matches.get(0).toString());
+        assertEquals("[ ] return book", matches.get(1).toString());
+    }
+
+    @Test
+    public void findByKeyword_noMatches_returnsEmptyList() {
+        TaskList list = new TaskList();
+        list.add(new Task("exercise"));
+
+        List<Task> matches = list.findByKeyword("book");
+
+        assertEquals(0, matches.size());
+    }
 }

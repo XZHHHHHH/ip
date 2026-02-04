@@ -11,7 +11,7 @@ public class Parser {
      * Supported command types.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
 
     /**
@@ -114,6 +114,10 @@ public class Parser {
         public static Command delete(int index) {
             return new Command(CommandType.DELETE, null, index, null, null, null);
         }
+
+        public static Command find(String keyword) {
+            return new Command(CommandType.FIND, keyword, -1, null, null, null);
+        }
     }
 
     /**
@@ -195,6 +199,16 @@ public class Parser {
         if (input.startsWith("delete ")) {
             int idx = parseIndex(input.split(" ")[1]);
             return Command.delete(idx);
+        }
+        if (input.equals("find") || input.startsWith("find")) {
+            if (input.length() <= 4) {
+                throw new BotException("Oops - please add a keyword after 'find'.");
+            }
+            String keyword = input.split("find ", 2)[1].trim();
+            if (keyword.isEmpty()) {
+                throw new BotException("Oops - please add a keyword after 'find'.");
+            }
+            return Command.find(keyword);
         }
 
         throw new BotException("Sorry, I don't understand your command. Please try again.");

@@ -97,6 +97,10 @@ public class ZH9072Bot {
                         ui.showDeleted(removed, tasks);
                         break;
 
+                    case FIND:
+                        ui.showFindResults(tasks.findByKeyword(cmd.description));
+                        break;
+
                     default:
                         throw new BotException("Sorry, I don't understand your command. Please try again.");
                 }

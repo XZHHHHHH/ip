@@ -57,6 +57,16 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_findCommand_readsKeyword() throws Exception {
+        Parser parser = new Parser();
+
+        Parser.Command cmd = parser.parse("find book");
+
+        assertEquals(Parser.CommandType.FIND, cmd.type);
+        assertEquals("book", cmd.description);
+    }
+
+    @Test
     public void parse_todoCommand_readsDescription() throws Exception {
         Parser parser = new Parser();
 
@@ -104,6 +114,22 @@ public class ParserTest {
 
         BotException ex = assertThrows(BotException.class, () -> parser.parse("mark 0"));
         assertTrue(ex.getMessage().toLowerCase().contains("index"));
+    }
+
+    @Test
+    public void parse_findWithoutKeyword_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("find"));
+        assertTrue(ex.getMessage().toLowerCase().contains("keyword"));
+    }
+
+    @Test
+    public void parse_findWithSpacesOnly_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("find   "));
+        assertTrue(ex.getMessage().toLowerCase().contains("keyword"));
     }
 
     @Test

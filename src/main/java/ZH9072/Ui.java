@@ -3,6 +3,7 @@ package ZH9072;
 import ZH9072.Tasks.Task;
 import ZH9072.Tasks.TaskList;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -90,11 +91,19 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    /**
-     * Displays confirmation after adding a task.
-     *
-     * @param tasks Task list containing the newly added task.
-     */
+    public void showFindResults(List<Task> matches) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        if (matches.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            for (int i = 0; i < matches.size(); i++) {
+                System.out.println((i + 1) + "." + matches.get(i));
+            }
+        }
+        System.out.println(LINE);
+    }
+
     public void showAdded(TaskList tasks) {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
