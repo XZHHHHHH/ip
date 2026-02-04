@@ -1,0 +1,40 @@
+package ZH9072;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.io.PrintStream;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class ZH9072BotTest {
+    @TempDir
+    Path tempDir;
+
+    @Test
+    public void run_byeCommand_printsWelcomeAndBye() {
+        ByteArrayInputStream in = new ByteArrayInputStream("bye\n".getBytes(StandardCharsets.UTF_8));
+        java.io.InputStream originalIn = System.in;
+        System.setIn(in);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(out, true, StandardCharsets.UTF_8));
+
+        try {
+            Path file = tempDir.resolve("duke.txt");
+            ZH9072Bot bot = new ZH9072Bot(file.toString());
+            bot.run();
+
+            String output = out.toString(StandardCharsets.UTF_8);
+            assertTrue(output.contains("Hello! I'm ZH9072Bot"));
+            assertTrue(output.contains("Hope to see you again soon"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+}
