@@ -3,6 +3,7 @@ package ZH9072;
 import ZH9072.Tasks.Task;
 import ZH9072.Tasks.TaskList;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -56,6 +57,19 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
+        }
+        System.out.println(LINE);
+    }
+
+    public void showFindResults(List<Task> matches) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        if (matches.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            for (int i = 0; i < matches.size(); i++) {
+                System.out.println((i + 1) + "." + matches.get(i));
+            }
         }
         System.out.println(LINE);
     }
