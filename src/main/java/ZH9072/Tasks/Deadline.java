@@ -3,25 +3,42 @@ package ZH9072.Tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
-
+/**
+ * Represents a deadline task with a due date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
     private static final DateTimeFormatter OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Creates a deadline task.
+     *
+     * @param content Task description.
+     * @param by      Due date.
+     */
     public Deadline(String content, LocalDate by) {
         super(content);
         this.by = by;
     }
 
+    /**
+     * Returns a user-friendly string for display.
+     *
+     * @return Display string for the deadline.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString()
                 + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 
+    /**
+     * Formats the task for persistent storage.
+     *
+     * @return Serialized storage line for this deadline.
+     */
     @Override
     public String toStorageString() {
         return "D | " + (isDone ? "1" : "0")

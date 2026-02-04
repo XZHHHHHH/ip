@@ -7,10 +7,16 @@ import java.time.LocalDate;
  */
 public class Parser {
 
+    /**
+     * Supported command types.
+     */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
 
+    /**
+     * Represents a parsed command with associated arguments.
+     */
     public static class Command {
         public final CommandType type;
         public final String description;
@@ -28,39 +34,95 @@ public class Parser {
             this.to = to;
         }
 
+        /**
+         * Creates a {@code bye} command.
+         *
+         * @return Command representing a goodbye request.
+         */
         public static Command bye() {
             return new Command(CommandType.BYE, null, -1, null, null, null);
         }
 
+        /**
+         * Creates a {@code list} command.
+         *
+         * @return Command representing a list request.
+         */
         public static Command list() {
             return new Command(CommandType.LIST, null, -1, null, null, null);
         }
 
+        /**
+         * Creates a {@code mark} command.
+         *
+         * @param index Zero-based task index.
+         * @return Command to mark a task as done.
+         */
         public static Command mark(int index) {
             return new Command(CommandType.MARK, null, index, null, null, null);
         }
 
+        /**
+         * Creates an {@code unmark} command.
+         *
+         * @param index Zero-based task index.
+         * @return Command to mark a task as not done.
+         */
         public static Command unmark(int index) {
             return new Command(CommandType.UNMARK, null, index, null, null, null);
         }
 
+        /**
+         * Creates a {@code todo} command.
+         *
+         * @param description Task description.
+         * @return Command to add a todo task.
+         */
         public static Command todo(String description) {
             return new Command(CommandType.TODO, description, -1, null, null, null);
         }
 
+        /**
+         * Creates a {@code deadline} command.
+         *
+         * @param description Task description.
+         * @param by          Due date.
+         * @return Command to add a deadline task.
+         */
         public static Command deadline(String description, LocalDate by) {
             return new Command(CommandType.DEADLINE, description, -1, by, null, null);
         }
 
+        /**
+         * Creates an {@code event} command.
+         *
+         * @param description Task description.
+         * @param from        Start time or description.
+         * @param to          End time or description.
+         * @return Command to add an event task.
+         */
         public static Command event(String description, String from, String to) {
             return new Command(CommandType.EVENT, description, -1, null, from, to);
         }
 
+        /**
+         * Creates a {@code delete} command.
+         *
+         * @param index Zero-based task index.
+         * @return Command to delete a task.
+         */
         public static Command delete(int index) {
             return new Command(CommandType.DELETE, null, index, null, null, null);
         }
     }
 
+    /**
+     * Parses a raw user input line into a command.
+     *
+     * @param input Raw user input.
+     * @return Parsed command.
+     * @throws BotException If the input is invalid or incomplete.
+     */
     public Command parse(String input) throws BotException {
         input = input.trim();
 
@@ -138,6 +200,13 @@ public class Parser {
         throw new BotException("Sorry, I don't understand your command. Please try again.");
     }
 
+    /**
+     * Parses a one-based index and converts it to zero-based form.
+     *
+     * @param oneBasedNumber User-provided one-based index string.
+     * @return Zero-based index.
+     * @throws BotException If the value is not a positive number.
+     */
     private int parseIndex(String oneBasedNumber) throws BotException {
         try {
             int oneBased = Integer.parseInt(oneBasedNumber);

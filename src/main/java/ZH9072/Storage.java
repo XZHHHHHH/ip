@@ -23,19 +23,38 @@ public class Storage {
 
     private final Path filePath;
 
+    /**
+     * Creates a storage instance using the default path.
+     */
     public Storage() {
         this(DEFAULT_PATH);
     }
 
+    /**
+     * Creates a storage instance using the given file path.
+     *
+     * @param filePath Path to the storage file.
+     */
     public Storage(String filePath) {
         this(Paths.get(filePath));
     }
 
+    /**
+     * Creates a storage instance using the given file path.
+     *
+     * @param filePath Path to the storage file.
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
 
 
+    /**
+     * Loads tasks from disk.
+     *
+     * @return List of loaded tasks (empty if file missing).
+     * @throws IOException If the file cannot be read.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -59,6 +78,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to disk, creating directories if needed.
+     *
+     * @param tasks Tasks to persist.
+     * @throws IOException If the file cannot be written.
+     */
     public void save(List<Task> tasks) throws IOException {
         Path parent = filePath.getParent();
         if (parent != null && Files.notExists(parent)) {
@@ -73,6 +98,13 @@ public class Storage {
         Files.write(filePath, output, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Parses a single storage line into a task.
+     *
+     * @param line Storage line content.
+     * @return Parsed task.
+     * @throws IllegalArgumentException If the line is malformed.
+     */
     private Task parseLine(String line) {
         String[] parts = line.split("\\s*\\|\\s*");
         if (parts.length < 3) {
