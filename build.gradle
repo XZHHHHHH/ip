@@ -32,8 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+    archiveFileName = "ZH9072.jar"
+    destinationDirectory = file(".")
 }
 
 run{
