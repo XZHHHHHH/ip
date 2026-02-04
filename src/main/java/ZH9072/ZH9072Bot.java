@@ -9,6 +9,9 @@ import ZH9072.Tasks.Event;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Main application class for the ZH9072 task bot.
+ */
 public class ZH9072Bot {
 
     private final Storage storage;
@@ -16,6 +19,11 @@ public class ZH9072Bot {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Creates a bot instance that reads/writes from the given file path.
+     *
+     * @param filePath Storage file path.
+     */
     public ZH9072Bot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -32,6 +40,9 @@ public class ZH9072Bot {
         tasks = loaded;
     }
 
+    /**
+     * Runs the main command loop until the user exits.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -100,6 +111,11 @@ public class ZH9072Bot {
         }
     }
 
+    /**
+     * Entry point for the application.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         new ZH9072Bot("data/duke.txt").run();
     }
