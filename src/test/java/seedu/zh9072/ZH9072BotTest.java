@@ -1,14 +1,15 @@
-package ZH9072;
+package seedu.zh9072;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
-import java.io.PrintStream;
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ZH9072BotTest {
     @TempDir
@@ -38,3 +39,5 @@ public class ZH9072BotTest {
         }
     }
 }
+
+

@@ -1,4 +1,4 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,10 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task with a due date.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
-
     private static final DateTimeFormatter OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
+    protected LocalDate by;
 
     /**
      * Creates a deadline task.
@@ -46,3 +45,5 @@ public class Deadline extends Task {
                 + " | " + by.toString(); // yyyy-MM-dd
     }
 }
+
+

@@ -1,7 +1,8 @@
-package ZH9072;
+package seedu.zh9072;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BotExceptionTest {
     @Test
@@ -11,3 +12,5 @@ public class BotExceptionTest {
         assertEquals("boom", ex.getMessage());
     }
 }
+
+

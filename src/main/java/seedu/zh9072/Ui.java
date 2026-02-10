@@ -1,11 +1,10 @@
-package ZH9072;
-
-import ZH9072.Tasks.Task;
-import ZH9072.Tasks.TaskList;
+package seedu.zh9072;
 
 import java.util.List;
 import java.util.Scanner;
 
+import seedu.zh9072.tasks.Task;
+import seedu.zh9072.tasks.TaskList;
 /**
  * Handles all user interaction (input/output).
  */
@@ -91,6 +90,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays the tasks that match the given keyword.
+     *
+     * @param matches List of matching tasks.
+     */
     public void showFindResults(List<Task> matches) {
         System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list:");
@@ -104,6 +108,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays confirmation after adding a task.
+     *
+     * @param tasks Updated task list.
+     */
     public void showAdded(TaskList tasks) {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
@@ -143,3 +152,5 @@ public class Ui {
         System.out.println(LINE);
     }
 }
+
+

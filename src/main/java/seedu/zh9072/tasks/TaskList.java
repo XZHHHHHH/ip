@@ -1,4 +1,4 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +72,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Finds tasks that contain the given keyword.
+     *
+     * @param keyword Keyword to search for.
+     * @return List of matching tasks.
+     */
     public List<Task> findByKeyword(String keyword) {
         List<Task> matches = new ArrayList<>();
         String loweredKeyword = keyword.toLowerCase();
@@ -83,3 +89,5 @@ public class TaskList {
         return matches;
     }
 }
+
+

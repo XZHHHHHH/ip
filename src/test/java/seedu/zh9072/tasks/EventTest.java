@@ -1,7 +1,8 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
@@ -27,3 +28,5 @@ public class EventTest {
         assertEquals("[E][ ] conference (from: Mon to: Tue)", event.toString());
     }
 }
+
+

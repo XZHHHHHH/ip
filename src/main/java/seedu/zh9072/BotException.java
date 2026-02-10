@@ -1,4 +1,4 @@
-package ZH9072;
+package seedu.zh9072;
 
 /**
  * Represents a user-facing exception for invalid commands.
@@ -13,3 +13,5 @@ public class BotException extends Exception {
         super(message);
     }
 }
+
+

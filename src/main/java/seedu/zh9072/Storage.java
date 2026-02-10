@@ -1,18 +1,18 @@
-package ZH9072;
-
-import ZH9072.Tasks.Task;
-import ZH9072.Tasks.ToDo;
-import ZH9072.Tasks.Deadline;
-import ZH9072.Tasks.Event;
+package seedu.zh9072;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
+
+import seedu.zh9072.tasks.Deadline;
+import seedu.zh9072.tasks.Event;
+import seedu.zh9072.tasks.Task;
+import seedu.zh9072.tasks.ToDo;
 
 
 /**
@@ -72,7 +72,7 @@ public class Storage {
                 Task task = parseLine(line.trim());
                 tasks.add(task);
             } catch (IllegalArgumentException ignored) {
-
+                // Ignore malformed lines.
             }
         }
         return tasks;
@@ -143,3 +143,5 @@ public class Storage {
         return task;
     }
 }
+
+

@@ -1,4 +1,4 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
 /**
  * Represents a todo task.
@@ -40,3 +40,5 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 }
+
+

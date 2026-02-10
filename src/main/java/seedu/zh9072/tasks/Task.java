@@ -1,11 +1,11 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
 /**
  * Represents a task with content and a completion status.
  */
 public class Task {
-    private final String content;
     protected boolean isDone;
+    private final String content;
 
     /**
      * Creates a task with the given content.
@@ -96,3 +96,5 @@ public class Task {
         return getStatusIcon() + " " + content;
     }
 }
+
+

@@ -1,16 +1,17 @@
-package ZH9072;
+package seedu.zh9072;
 
-import ZH9072.Tasks.Task;
-import ZH9072.Tasks.TaskList;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.zh9072.tasks.Task;
+import seedu.zh9072.tasks.TaskList;
 
 public class UiTest {
     @Test
@@ -66,3 +67,5 @@ public class UiTest {
         }
     }
 }
+
+

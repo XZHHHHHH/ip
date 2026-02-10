@@ -1,8 +1,10 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
     @Test
@@ -20,3 +22,5 @@ public class DeadlineTest {
         assertEquals("D | 1 | pay rent | 2026-02-01", deadline.toStorageString());
     }
 }
+
+

@@ -1,7 +1,8 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ToDoTest {
     @Test
@@ -19,3 +20,5 @@ public class ToDoTest {
         assertEquals("[T][ ] buy milk", todo.toString());
     }
 }
+
+

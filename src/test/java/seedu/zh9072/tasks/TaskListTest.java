@@ -1,10 +1,12 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
-import org.junit.jupiter.api.Test;
-import java.util.List;
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -66,3 +68,5 @@ public class TaskListTest {
         assertEquals(0, matches.size());
     }
 }
+
+

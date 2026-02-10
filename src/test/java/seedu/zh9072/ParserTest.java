@@ -1,11 +1,12 @@
-package ZH9072;
+package seedu.zh9072;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -13,7 +14,6 @@ public class ParserTest {
         Parser parser = new Parser();
 
         Parser.Command cmd = parser.parse("bye");
-
         assertEquals(Parser.CommandType.BYE, cmd.type);
     }
 
@@ -103,8 +103,7 @@ public class ParserTest {
     public void parse_invalidDeadlineDate_throwsBotException() {
         Parser parser = new Parser();
 
-        BotException ex = assertThrows(BotException.class,
-                () -> parser.parse("deadline homework /by 2026-02-31"));
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("deadline homework /by 2026-02-31"));
         assertTrue(ex.getMessage().toLowerCase().contains("date"));
     }
 

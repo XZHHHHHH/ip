@@ -1,12 +1,7 @@
-package ZH9072;
+package seedu.zh9072;
 
-import ZH9072.Tasks.Deadline;
-import ZH9072.Tasks.Event;
-import ZH9072.Tasks.Task;
-import ZH9072.Tasks.ToDo;
-import org.junit.jupiter.api.Test;
-
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,8 +11,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import seedu.zh9072.tasks.Deadline;
+import seedu.zh9072.tasks.Event;
+import seedu.zh9072.tasks.Task;
+import seedu.zh9072.tasks.ToDo;
 
 public class StorageTest {
     @TempDir
@@ -83,3 +83,5 @@ public class StorageTest {
         assertTrue(Files.exists(nested));
     }
 }
+
+

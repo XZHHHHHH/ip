@@ -1,4 +1,4 @@
-package ZH9072.Tasks;
+package seedu.zh9072.tasks;
 
 /**
  * Represents an event task.
@@ -65,3 +65,5 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
+
+
