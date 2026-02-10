@@ -1,18 +1,18 @@
-package seedu.zh9072;
+package zhbot;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.zh9072.tasks.Deadline;
-import seedu.zh9072.tasks.Event;
-import seedu.zh9072.tasks.Task;
-import seedu.zh9072.tasks.TaskList;
-import seedu.zh9072.tasks.ToDo;
+import zhbot.tasks.Deadline;
+import zhbot.tasks.Event;
+import zhbot.tasks.Task;
+import zhbot.tasks.TaskList;
+import zhbot.tasks.ToDo;
 
 /**
  * Main application class for the ZH9072 task bot.
  */
-public class ZH9072Bot {
+public class Zhbot {
 
     private final Storage storage;
     private final TaskList tasks;
@@ -24,7 +24,7 @@ public class ZH9072Bot {
      *
      * @param filePath Storage file path.
      */
-    public ZH9072Bot(String filePath) {
+    public Zhbot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
@@ -121,7 +121,7 @@ public class ZH9072Bot {
      * @param args Command-line arguments (unused).
      */
     public static void main(String[] args) {
-        new ZH9072Bot("data/duke.txt").run();
+        new Zhbot("data/duke.txt").run();
     }
 }
 

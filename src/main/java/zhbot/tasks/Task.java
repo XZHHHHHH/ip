@@ -1,4 +1,4 @@
-package seedu.zh9072.tasks;
+package zhbot.tasks;
 
 /**
  * Represents a task with content and a completion status.

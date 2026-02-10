@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.zh9072.ZH9072Bot")
+    mainClass.set("Zhbot")
 }
 
 shadowJar {
-    archiveFileName = "ZH9072.jar"
+    archiveFileName = "Zhbot.jar"
     destinationDirectory = file(".")
 }
 

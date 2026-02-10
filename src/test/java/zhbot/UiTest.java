@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zh9072.tasks.Task;
-import seedu.zh9072.tasks.TaskList;
+import zhbot.tasks.Task;
+import zhbot.tasks.TaskList;
 
 public class UiTest {
     @Test

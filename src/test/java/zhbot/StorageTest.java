@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,10 +14,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.zh9072.tasks.Deadline;
-import seedu.zh9072.tasks.Event;
-import seedu.zh9072.tasks.Task;
-import seedu.zh9072.tasks.ToDo;
+import zhbot.tasks.Deadline;
+import zhbot.tasks.Event;
+import zhbot.tasks.Task;
+import zhbot.tasks.ToDo;
 
 public class StorageTest {
     @TempDir

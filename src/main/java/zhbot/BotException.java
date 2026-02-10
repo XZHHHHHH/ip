@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 /**
  * Represents a user-facing exception for invalid commands.

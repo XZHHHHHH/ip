@@ -1,4 +1,4 @@
-package seedu.zh9072.tasks;
+package zhbot.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

@@ -1,10 +1,10 @@
-package seedu.zh9072;
+package zhbot;
 
 import java.util.List;
 import java.util.Scanner;
 
-import seedu.zh9072.tasks.Task;
-import seedu.zh9072.tasks.TaskList;
+import zhbot.tasks.Task;
+import zhbot.tasks.TaskList;
 /**
  * Handles all user interaction (input/output).
  */

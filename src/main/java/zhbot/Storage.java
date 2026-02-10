@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.zh9072.tasks.Deadline;
-import seedu.zh9072.tasks.Event;
-import seedu.zh9072.tasks.Task;
-import seedu.zh9072.tasks.ToDo;
+import zhbot.tasks.Deadline;
+import zhbot.tasks.Event;
+import zhbot.tasks.Task;
+import zhbot.tasks.ToDo;
 
 
 /**

@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 import java.time.LocalDate;
 

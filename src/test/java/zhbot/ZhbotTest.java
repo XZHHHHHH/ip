@@ -1,4 +1,4 @@
-package seedu.zh9072;
+package zhbot;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-public class ZH9072BotTest {
+public class ZhbotTest {
     @TempDir
     Path tempDir;
 
@@ -27,7 +27,7 @@ public class ZH9072BotTest {
 
         try {
             Path file = tempDir.resolve("duke.txt");
-            ZH9072Bot bot = new ZH9072Bot(file.toString());
+            Zhbot bot = new Zhbot(file.toString());
             bot.run();
 
             String output = out.toString(StandardCharsets.UTF_8);

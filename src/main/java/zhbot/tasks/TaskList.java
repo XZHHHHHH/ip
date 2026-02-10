@@ -1,4 +1,4 @@
-package seedu.zh9072.tasks;
+package zhbot.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
