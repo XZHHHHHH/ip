@@ -1,0 +1,10 @@
+T | 1 | return book
+T | 0 | clean room
+T | 0 | read book
+T | 0 | return book
+T | 0 | clean room
+T | 0 | read book
+T | 0 | return book
+D | 0 | submit report | 2026-02-04
+E | 0 | project meeting | 2pm | 4pm
+T | 0 | sleep

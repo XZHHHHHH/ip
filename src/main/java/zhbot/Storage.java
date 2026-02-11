@@ -19,7 +19,7 @@ import zhbot.tasks.ToDo;
  * Handles loading and saving tasks to disk.
  */
 public class Storage {
-    private static final Path DEFAULT_PATH = Paths.get("data", "duke.txt");
+    private static final Path DEFAULT_PATH = Paths.get("data", "zh.txt");
 
     private final Path filePath;
 
@@ -143,5 +143,3 @@ public class Storage {
         return task;
     }
 }
-
-

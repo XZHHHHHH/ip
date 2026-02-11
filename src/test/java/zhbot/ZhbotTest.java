@@ -26,7 +26,7 @@ public class ZhbotTest {
         System.setOut(new PrintStream(out, true, StandardCharsets.UTF_8));
 
         try {
-            Path file = tempDir.resolve("duke.txt");
+            Path file = tempDir.resolve("zh.txt");
             Zhbot bot = new Zhbot(file.toString());
             bot.run();
 

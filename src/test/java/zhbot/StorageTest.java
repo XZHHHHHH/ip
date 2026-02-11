@@ -35,7 +35,7 @@ public class StorageTest {
 
     @Test
     public void save_thenLoad_roundTripsTasks() throws Exception {
-        Path file = tempDir.resolve("duke.txt");
+        Path file = tempDir.resolve("zh.txt");
         Storage storage = new Storage(file.toString());
 
         List<Task> tasks = new ArrayList<>();
@@ -55,7 +55,7 @@ public class StorageTest {
 
     @Test
     public void load_skipsInvalidLines() throws Exception {
-        Path file = tempDir.resolve("duke.txt");
+        Path file = tempDir.resolve("zh.txt");
         List<String> lines = List.of(
                 "T | 0 | ok",
                 "BAD LINE",
@@ -74,7 +74,7 @@ public class StorageTest {
 
     @Test
     public void save_createsParentDirectories() throws IOException {
-        Path nested = tempDir.resolve("nested/duke.txt");
+        Path nested = tempDir.resolve("nested/zh.txt");
         Storage storage = new Storage(nested);
 
         List<Task> tasks = List.of(new ToDo("plan"));
