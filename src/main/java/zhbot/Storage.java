@@ -117,12 +117,7 @@ public class Storage {
         }
 
         String type = parts[0];
-        boolean isDone;
-        if ("1".equals(parts[1])) {
-            isDone = true;
-        } else {
-            isDone = false;
-        }
+        boolean isDone = "1".equals(parts[1]);
 
         String content = parts[2];
         Task task;

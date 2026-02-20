@@ -73,7 +73,7 @@ public class TaskList {
      * @return Backing task list.
      */
     public List<Task> asList() {
-        return tasks;
+        return new ArrayList<>(tasks);
     }
 
     /**

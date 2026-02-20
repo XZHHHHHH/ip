@@ -138,12 +138,10 @@ public class Parser {
             return Command.list();
         }
         if (input.startsWith("mark ")) {
-            int idx = parseIndex(input.split(" ")[1]);
-            return Command.mark(idx);
+            return Command.mark(parseIndexArgument(input, "mark"));
         }
         if (input.startsWith("unmark ")) {
-            int idx = parseIndex(input.split(" ")[1]);
-            return Command.unmark(idx);
+            return Command.unmark(parseIndexArgument(input, "unmark"));
         }
         if (input.equals("todo") || input.startsWith("todo")) {
             if (input.length() <= 4) {
@@ -198,8 +196,7 @@ public class Parser {
             return Command.event(desc, from, to);
         }
         if (input.startsWith("delete ")) {
-            int idx = parseIndex(input.split(" ")[1]);
-            return Command.delete(idx);
+            return Command.delete(parseIndexArgument(input, "delete"));
         }
         if (input.equals("find") || input.startsWith("find")) {
             if (input.length() <= 4) {
@@ -235,6 +232,14 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new BotException("Index must be a number.");
         }
+    }
+
+    private int parseIndexArgument(String input, String commandWord) throws BotException {
+        String argument = input.substring(commandWord.length()).trim();
+        if (argument.isEmpty()) {
+            throw new BotException("Index must be a number.");
+        }
+        return parseIndex(argument.split("\\s+")[0]);
     }
 }
 

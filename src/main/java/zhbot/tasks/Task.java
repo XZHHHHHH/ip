@@ -66,11 +66,16 @@ public class Task {
      * @return Status icon string.
      */
     public String getStatusIcon() {
-        if (isDone) {
-            return "[X]";
-        } else {
-            return "[ ]";
-        }
+        return isDone ? "[X]" : "[ ]";
+    }
+
+    /**
+     * Returns the serialized done flag used by storage.
+     *
+     * @return "1" if done, otherwise "0".
+     */
+    protected String getDoneFlag() {
+        return isDone ? "1" : "0";
     }
 
     /**
@@ -79,13 +84,7 @@ public class Task {
      * @return Serialized storage line for this task.
      */
     public String toStorageString() {
-        String doneFlag;
-        if (isDone) {
-            doneFlag = "1";
-        } else {
-            doneFlag = "0";
-        }
-        return "? | " + doneFlag + " | " + content;
+        return "? | " + getDoneFlag() + " | " + content;
     }
 
     /**

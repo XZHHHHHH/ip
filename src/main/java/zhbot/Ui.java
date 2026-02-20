@@ -84,8 +84,12 @@ public class Ui {
     public void showList(TaskList tasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+        if (tasks.size() == 0) {
+            System.out.println("(No tasks yet.)");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
         }
         System.out.println(LINE);
     }
