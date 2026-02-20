@@ -45,6 +45,7 @@ public class Storage {
      * @param filePath Path to the storage file.
      */
     public Storage(Path filePath) {
+        assert filePath != null : "Storage file path should not be null.";
         this.filePath = filePath;
     }
 
@@ -85,6 +86,7 @@ public class Storage {
      * @throws IOException If the file cannot be written.
      */
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Task list to save should not be null.";
         Path parent = filePath.getParent();
         if (parent != null && Files.notExists(parent)) {
             Files.createDirectories(parent);
@@ -92,6 +94,7 @@ public class Storage {
 
         List<String> output = new ArrayList<>();
         for (Task task : tasks) {
+            assert task != null : "Stored task entries should not be null.";
             output.add(task.toStorageString());
         }
 
@@ -106,6 +109,8 @@ public class Storage {
      * @throws IllegalArgumentException If the line is malformed.
      */
     private Task parseLine(String line) {
+        assert line != null : "Storage line should not be null.";
+        assert !line.trim().isEmpty() : "Storage line should not be empty.";
         String[] parts = line.split("\\s*\\|\\s*");
         if (parts.length < 3) {
             throw new IllegalArgumentException("Invalid line");

@@ -13,6 +13,8 @@ public class Task {
      * @param content Task description.
      */
     public Task(String content) {
+        assert content != null : "Task content should not be null.";
+        assert !content.trim().isEmpty() : "Task content should not be empty.";
         this.content = content;
         this.isDone = false;
     }

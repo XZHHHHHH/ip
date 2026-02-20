@@ -21,11 +21,14 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane appRoot = fxmlLoader.load();
+            assert appRoot != null : "Main window root should load from FXML.";
             Scene scene = new Scene(appRoot);
             stage.setScene(scene);
             stage.setTitle("Zhbot");
             stage.setResizable(false);
-            fxmlLoader.<MainWindow>getController().setZhbot(zhbot);
+            MainWindow controller = fxmlLoader.getController();
+            assert controller != null : "Main window controller should be available after load.";
+            controller.setZhbot(zhbot);
             stage.show();
         } catch (IOException e) {
             throw new IllegalStateException("Unable to start GUI.", e);

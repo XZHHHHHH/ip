@@ -22,6 +22,7 @@ public class TaskList {
      * @param tasks Backing list to use.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Backing task list should not be null.";
         this.tasks = tasks;
     }
 
@@ -31,6 +32,7 @@ public class TaskList {
      * @param task Task to add.
      */
     public void add(Task task) {
+        assert task != null : "Task to add should not be null.";
         tasks.add(task);
     }
 
@@ -41,6 +43,7 @@ public class TaskList {
      * @return Removed task.
      */
     public Task remove(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index should be within range.";
         return tasks.remove(index);
     }
 
@@ -51,6 +54,7 @@ public class TaskList {
      * @return Task at the index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index should be within range.";
         return tasks.get(index);
     }
 
@@ -79,6 +83,7 @@ public class TaskList {
      * @return List of matching tasks.
      */
     public List<Task> findByKeyword(String keyword) {
+        assert keyword != null : "Search keyword should not be null.";
         List<Task> matches = new ArrayList<>();
         String loweredKeyword = keyword.toLowerCase();
         for (Task task : tasks) {

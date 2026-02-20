@@ -26,6 +26,7 @@ public class Zhbot {
      * @param filePath Storage file path.
      */
     public Zhbot(String filePath) {
+        assert filePath != null : "Storage file path should not be null.";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
@@ -52,6 +53,7 @@ public class Zhbot {
 
             try {
                 Parser.Command cmd = parser.parse(input);
+                assert cmd != null : "Parser should return a command for valid input.";
 
                 switch (cmd.type) {
                 case BYE:
@@ -125,6 +127,7 @@ public class Zhbot {
     public String getResponse(String input) {
         try {
             Parser.Command cmd = parser.parse(input);
+            assert cmd != null : "Parser should return a command for valid input.";
 
             switch (cmd.type) {
             case BYE:

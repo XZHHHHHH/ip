@@ -128,6 +128,7 @@ public class Parser {
      * @throws BotException If the input is invalid or incomplete.
      */
     public Command parse(String input) throws BotException {
+        assert input != null : "Parser input should not be null.";
         input = input.trim();
 
         if (input.equals("bye")) {
@@ -222,12 +223,15 @@ public class Parser {
      * @throws BotException If the value is not a positive number.
      */
     private int parseIndex(String oneBasedNumber) throws BotException {
+        assert oneBasedNumber != null : "Index token should not be null.";
         try {
             int oneBased = Integer.parseInt(oneBasedNumber);
             if (oneBased <= 0) {
                 throw new BotException("Index must be a positive number.");
             }
-            return oneBased - 1;
+            int zeroBased = oneBased - 1;
+            assert zeroBased >= 0 : "Parsed index should be zero-based and non-negative.";
+            return zeroBased;
         } catch (NumberFormatException e) {
             throw new BotException("Index must be a number.");
         }
