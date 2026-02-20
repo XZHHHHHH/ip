@@ -29,6 +29,10 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane should be injected by FXML.";
+        assert dialogContainer != null : "Dialog container should be injected by FXML.";
+        assert userInput != null : "User input field should be injected by FXML.";
+        assert sendButton != null : "Send button should be injected by FXML.";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.setFitToWidth(true);
     }
@@ -39,6 +43,7 @@ public class MainWindow extends AnchorPane {
      * @param bot bot instance used to generate responses.
      */
     public void setZhbot(Zhbot bot) {
+        assert bot != null : "Bot instance should not be null.";
         zhbot = bot;
     }
 
@@ -48,6 +53,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert zhbot != null : "Bot should be set before handling user input.";
         String input = userInput.getText();
         String response = zhbot.getResponse(input);
         dialogContainer.getChildren().addAll(

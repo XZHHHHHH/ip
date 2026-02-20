@@ -21,6 +21,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image image) {
+        assert text != null : "Dialog text should not be null.";
+        assert image != null : "Dialog image should not be null.";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -30,6 +32,8 @@ public class DialogBox extends HBox {
             throw new IllegalStateException("Failed to load DialogBox FXML.", e);
         }
 
+        assert dialog != null : "Dialog label should be injected by FXML.";
+        assert displayPicture != null : "Display picture should be injected by FXML.";
         dialog.setText(text);
         displayPicture.setImage(image);
     }
