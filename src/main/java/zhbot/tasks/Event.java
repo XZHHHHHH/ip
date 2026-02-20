@@ -45,13 +45,7 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        String doneFlag;
-        if (isDone()) {
-            doneFlag = "1";
-        } else {
-            doneFlag = "0";
-        }
-        return "E | " + doneFlag + " | " + getContent()
+        return "E | " + getDoneFlag() + " | " + getContent()
                 + " | " + from + " | " + to;
     }
 

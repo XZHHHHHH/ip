@@ -63,38 +63,30 @@ public class Zhbot {
                     break;
 
                 case MARK:
-                    tasks.get(cmd.index).markDone();
-                    storage.save(tasks.asList());
-                    ui.showMarked(tasks.get(cmd.index), true);
+                    ui.showMarked(updateTaskStatus(cmd.index, true), true);
                     break;
 
                 case UNMARK:
-                    tasks.get(cmd.index).markUndone();
-                    storage.save(tasks.asList());
-                    ui.showMarked(tasks.get(cmd.index), false);
+                    ui.showMarked(updateTaskStatus(cmd.index, false), false);
                     break;
 
                 case TODO:
-                    tasks.add(new ToDo(cmd.description));
-                    storage.save(tasks.asList());
+                    addTask(new ToDo(cmd.description));
                     ui.showAdded(tasks);
                     break;
 
                 case DEADLINE:
-                    tasks.add(new Deadline(cmd.description, cmd.by)); // LocalDate
-                    storage.save(tasks.asList());
+                    addTask(new Deadline(cmd.description, cmd.by));
                     ui.showAdded(tasks);
                     break;
 
                 case EVENT:
-                    tasks.add(new Event(cmd.description, cmd.from, cmd.to));
-                    storage.save(tasks.asList());
+                    addTask(new Event(cmd.description, cmd.from, cmd.to));
                     ui.showAdded(tasks);
                     break;
 
                 case DELETE:
-                    Task removed = tasks.remove(cmd.index);
-                    storage.save(tasks.asList());
+                    Task removed = deleteTask(cmd.index);
                     ui.showDeleted(removed, tasks);
                     break;
 
@@ -142,36 +134,30 @@ public class Zhbot {
                 return listResponse.toString();
 
             case MARK:
-                tasks.get(cmd.index).markDone();
-                storage.save(tasks.asList());
-                return "Nice! I've marked this task as done:\n  " + tasks.get(cmd.index);
+                return "Nice! I've marked this task as done:\n  "
+                        + updateTaskStatus(cmd.index, true);
 
             case UNMARK:
-                tasks.get(cmd.index).markUndone();
-                storage.save(tasks.asList());
-                return "OK, I've marked this task as not done yet:\n  " + tasks.get(cmd.index);
+                return "OK, I've marked this task as not done yet:\n  "
+                        + updateTaskStatus(cmd.index, false);
 
             case TODO:
-                tasks.add(new ToDo(cmd.description));
-                storage.save(tasks.asList());
+                addTask(new ToDo(cmd.description));
                 return "Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1)
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
             case DEADLINE:
-                tasks.add(new Deadline(cmd.description, cmd.by));
-                storage.save(tasks.asList());
+                addTask(new Deadline(cmd.description, cmd.by));
                 return "Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1)
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
             case EVENT:
-                tasks.add(new Event(cmd.description, cmd.from, cmd.to));
-                storage.save(tasks.asList());
+                addTask(new Event(cmd.description, cmd.from, cmd.to));
                 return "Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1)
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
             case DELETE:
-                Task removed = tasks.remove(cmd.index);
-                storage.save(tasks.asList());
+                Task removed = deleteTask(cmd.index);
                 return "Noted. I've removed this task:\n  " + removed
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
@@ -199,6 +185,28 @@ public class Zhbot {
         }
     }
 
+    private Task updateTaskStatus(int index, boolean isDone) throws IOException {
+        Task task = tasks.get(index);
+        if (isDone) {
+            task.markDone();
+        } else {
+            task.markUndone();
+        }
+        storage.save(tasks.asList());
+        return task;
+    }
+
+    private void addTask(Task task) throws IOException {
+        tasks.add(task);
+        storage.save(tasks.asList());
+    }
+
+    private Task deleteTask(int index) throws IOException {
+        Task removed = tasks.remove(index);
+        storage.save(tasks.asList());
+        return removed;
+    }
+
     /**
      * Entry point for the application.
      *
@@ -208,5 +216,3 @@ public class Zhbot {
         new Zhbot("data/zh.txt").run();
     }
 }
-
-

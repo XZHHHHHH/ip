@@ -21,13 +21,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageString() {
-        String doneFlag;
-        if (isDone()) {
-            doneFlag = "1";
-        } else {
-            doneFlag = "0";
-        }
-        return "T | " + doneFlag + " | " + getContent();
+        return "T | " + getDoneFlag() + " | " + getContent();
     }
 
     /**

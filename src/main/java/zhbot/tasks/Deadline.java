@@ -45,5 +45,3 @@ public class Deadline extends Task {
                 + " | " + by.toString(); // yyyy-MM-dd
     }
 }
-
-
