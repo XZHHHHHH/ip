@@ -1,11 +1,13 @@
 package zhbot;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import zhbot.tasks.Deadline;
 import zhbot.tasks.Event;
+import zhbot.tasks.Remind;
 import zhbot.tasks.Task;
 import zhbot.tasks.TaskList;
 import zhbot.tasks.ToDo;
@@ -96,6 +98,10 @@ public class Zhbot {
                     ui.showFindResults(tasks.findByKeyword(cmd.description));
                     break;
 
+                case REMIND:
+                    ui.showReminders(tasks.findUpcomingReminders(LocalDate.now(), cmd.daysAhead), cmd.daysAhead);
+                    break;
+
                 default:
                     throw new BotException("Sorry, I don't understand your command. Please try again.");
                 }
@@ -176,6 +182,9 @@ public class Zhbot {
                 }
                 return findResponse.toString();
 
+            case REMIND:
+                return buildReminderResponse(cmd.daysAhead);
+
             default:
                 return "Sorry, I don't understand your command. Please try again.";
             }
@@ -208,6 +217,20 @@ public class Zhbot {
         Task removed = tasks.remove(index);
         storage.save(tasks.asList());
         return removed;
+    }
+
+    private String buildReminderResponse(int daysAhead) {
+        List<Remind> reminders = tasks.findUpcomingReminders(LocalDate.now(), daysAhead);
+        StringBuilder response = new StringBuilder(
+                "Here are your upcoming deadlines in the next " + daysAhead + " day(s):");
+        if (reminders.isEmpty()) {
+            response.append("\nNo upcoming deadlines. Nice work.");
+        } else {
+            for (int i = 0; i < reminders.size(); i++) {
+                response.append("\n").append(i + 1).append(".").append(reminders.get(i));
+            }
+        }
+        return response.toString();
     }
 
     /**

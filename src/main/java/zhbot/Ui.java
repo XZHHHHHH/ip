@@ -3,6 +3,7 @@ package zhbot;
 import java.util.List;
 import java.util.Scanner;
 
+import zhbot.tasks.Remind;
 import zhbot.tasks.Task;
 import zhbot.tasks.TaskList;
 /**
@@ -107,6 +108,25 @@ public class Ui {
         } else {
             for (int i = 0; i < matches.size(); i++) {
                 System.out.println((i + 1) + "." + matches.get(i));
+            }
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays upcoming reminders for deadline tasks.
+     *
+     * @param reminders List of upcoming reminders.
+     * @param daysAhead Number of days ahead to check, inclusive.
+     */
+    public void showReminders(List<Remind> reminders, int daysAhead) {
+        System.out.println(LINE);
+        System.out.println("Here are your upcoming deadlines in the next " + daysAhead + " day(s):");
+        if (reminders.isEmpty()) {
+            System.out.println("No upcoming deadlines. Nice work.");
+        } else {
+            for (int i = 0; i < reminders.size(); i++) {
+                System.out.println((i + 1) + "." + reminders.get(i));
             }
         }
         System.out.println(LINE);

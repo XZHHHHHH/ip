@@ -3,6 +3,7 @@ package zhbot.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,30 @@ public class TaskListTest {
         List<Task> matches = list.findByKeyword("book");
 
         assertEquals(0, matches.size());
+    }
+
+    @Test
+    public void findUpcomingReminders_returnsOnlyUndoneDeadlinesWithinWindow() {
+        TaskList list = new TaskList();
+        Deadline dueToday = new Deadline("today", LocalDate.of(2026, 2, 21));
+        Deadline dueSoon = new Deadline("soon", LocalDate.of(2026, 2, 24));
+        Deadline dueLater = new Deadline("later", LocalDate.of(2026, 3, 10));
+        Deadline doneSoon = new Deadline("done soon", LocalDate.of(2026, 2, 23));
+        doneSoon.markDone();
+
+        list.add(dueToday);
+        list.add(dueSoon);
+        list.add(dueLater);
+        list.add(doneSoon);
+        list.add(new Task("todo"));
+
+        List<Remind> reminders = list.findUpcomingReminders(LocalDate.of(2026, 2, 21), 3);
+
+        assertEquals(2, reminders.size());
+        assertSame(dueToday, reminders.get(0).getDeadline());
+        assertEquals(0, reminders.get(0).getDaysLeft());
+        assertSame(dueSoon, reminders.get(1).getDeadline());
+        assertEquals(3, reminders.get(1).getDaysLeft());
     }
 }
 

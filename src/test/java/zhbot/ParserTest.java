@@ -100,6 +100,26 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_remindWithoutDays_usesDefaultWindow() throws Exception {
+        Parser parser = new Parser();
+
+        Parser.Command cmd = parser.parse("remind");
+
+        assertEquals(Parser.CommandType.REMIND, cmd.type);
+        assertEquals(7, cmd.daysAhead);
+    }
+
+    @Test
+    public void parse_remindWithDays_parsesWindow() throws Exception {
+        Parser parser = new Parser();
+
+        Parser.Command cmd = parser.parse("remind 3");
+
+        assertEquals(Parser.CommandType.REMIND, cmd.type);
+        assertEquals(3, cmd.daysAhead);
+    }
+
+    @Test
     public void parse_invalidDeadlineDate_throwsBotException() {
         Parser parser = new Parser();
 
@@ -113,6 +133,14 @@ public class ParserTest {
 
         BotException ex = assertThrows(BotException.class, () -> parser.parse("mark 0"));
         assertTrue(ex.getMessage().toLowerCase().contains("index"));
+    }
+
+    @Test
+    public void parse_remindWithInvalidDays_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("remind soon"));
+        assertTrue(ex.getMessage().toLowerCase().contains("days"));
     }
 
     @Test

@@ -38,6 +38,20 @@ public class ZhbotTest {
             System.setOut(originalOut);
         }
     }
+
+    @Test
+    public void getResponse_remindShowsUpcomingDeadline() {
+        Path file = tempDir.resolve("zh-reminder.txt");
+        Zhbot bot = new Zhbot(file.toString());
+
+        String dueToday = java.time.LocalDate.now().toString();
+        bot.getResponse("deadline submit report /by " + dueToday);
+        String response = bot.getResponse("remind 1");
+
+        assertTrue(response.contains("upcoming deadlines"));
+        assertTrue(response.contains("submit report"));
+        assertTrue(response.contains("[R][D]"));
+    }
 }
 
 

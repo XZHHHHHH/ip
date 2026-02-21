@@ -7,9 +7,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import zhbot.tasks.Deadline;
+import zhbot.tasks.Remind;
 import zhbot.tasks.Task;
 import zhbot.tasks.TaskList;
 
@@ -45,6 +49,7 @@ public class UiTest {
             ui.showList(list);
             ui.showMarked(task, true);
             ui.showMarked(task, false);
+            ui.showReminders(List.of(new Remind(new Deadline("submit", LocalDate.of(2026, 2, 22)), 1)), 7);
             ui.showDeleted(task, list);
             ui.showError("error!");
             ui.showLoadingError();
@@ -57,6 +62,7 @@ public class UiTest {
             assertTrue(output.contains("Here are the tasks in your list"));
             assertTrue(output.contains("I've marked this task as done"));
             assertTrue(output.contains("not done yet"));
+            assertTrue(output.contains("upcoming deadlines"));
             assertTrue(output.contains("I've removed this task"));
             assertTrue(output.contains("error!"));
             assertTrue(output.contains("failed to load saved tasks"));

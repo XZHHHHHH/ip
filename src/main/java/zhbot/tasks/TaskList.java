@@ -1,5 +1,7 @@
 package zhbot.tasks;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +94,37 @@ public class TaskList {
             }
         }
         return matches;
+    }
+
+    /**
+     * Finds reminders for unfinished deadlines due within the next {@code daysAhead} days.
+     *
+     * @param today     Baseline date for reminder calculations.
+     * @param daysAhead Number of days ahead, inclusive.
+     * @return List of reminders.
+     */
+    public List<Remind> findUpcomingReminders(LocalDate today, int daysAhead) {
+        assert today != null : "Reminder base date should not be null.";
+        assert daysAhead >= 0 : "Days-ahead value should be non-negative.";
+
+        LocalDate latestDate = today.plusDays(daysAhead);
+        List<Remind> reminders = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (!(task instanceof Deadline) || task.isDone()) {
+                continue;
+            }
+
+            Deadline deadline = (Deadline) task;
+            LocalDate by = deadline.getBy();
+            boolean isWithinRange = (by.isEqual(today) || by.isAfter(today))
+                    && (by.isEqual(latestDate) || by.isBefore(latestDate));
+            if (isWithinRange) {
+                long daysLeft = ChronoUnit.DAYS.between(today, by);
+                reminders.add(new Remind(deadline, daysLeft));
+            }
+        }
+        return reminders;
     }
 }
 

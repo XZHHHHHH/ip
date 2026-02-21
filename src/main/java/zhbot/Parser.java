@@ -11,7 +11,7 @@ public class Parser {
      * Supported command types.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, REMIND
     }
 
     /**
@@ -24,14 +24,17 @@ public class Parser {
         public final LocalDate by;
         public final String from;
         public final String to;
+        public final int daysAhead;
 
-        private Command(CommandType type, String description, int index, LocalDate by, String from, String to) {
+        private Command(CommandType type, String description, int index, LocalDate by,
+                        String from, String to, int daysAhead) {
             this.type = type;
             this.description = description;
             this.index = index;
             this.by = by;
             this.from = from;
             this.to = to;
+            this.daysAhead = daysAhead;
         }
 
         /**
@@ -40,7 +43,7 @@ public class Parser {
          * @return Command representing a goodbye request.
          */
         public static Command bye() {
-            return new Command(CommandType.BYE, null, -1, null, null, null);
+            return new Command(CommandType.BYE, null, -1, null, null, null, -1);
         }
 
         /**
@@ -49,7 +52,7 @@ public class Parser {
          * @return Command representing a list request.
          */
         public static Command list() {
-            return new Command(CommandType.LIST, null, -1, null, null, null);
+            return new Command(CommandType.LIST, null, -1, null, null, null, -1);
         }
 
         /**
@@ -59,7 +62,7 @@ public class Parser {
          * @return Command to mark a task as done.
          */
         public static Command mark(int index) {
-            return new Command(CommandType.MARK, null, index, null, null, null);
+            return new Command(CommandType.MARK, null, index, null, null, null, -1);
         }
 
         /**
@@ -69,7 +72,7 @@ public class Parser {
          * @return Command to mark a task as not done.
          */
         public static Command unmark(int index) {
-            return new Command(CommandType.UNMARK, null, index, null, null, null);
+            return new Command(CommandType.UNMARK, null, index, null, null, null, -1);
         }
 
         /**
@@ -79,7 +82,7 @@ public class Parser {
          * @return Command to add a todo task.
          */
         public static Command todo(String description) {
-            return new Command(CommandType.TODO, description, -1, null, null, null);
+            return new Command(CommandType.TODO, description, -1, null, null, null, -1);
         }
 
         /**
@@ -90,7 +93,7 @@ public class Parser {
          * @return Command to add a deadline task.
          */
         public static Command deadline(String description, LocalDate by) {
-            return new Command(CommandType.DEADLINE, description, -1, by, null, null);
+            return new Command(CommandType.DEADLINE, description, -1, by, null, null, -1);
         }
 
         /**
@@ -102,7 +105,7 @@ public class Parser {
          * @return Command to add an event task.
          */
         public static Command event(String description, String from, String to) {
-            return new Command(CommandType.EVENT, description, -1, null, from, to);
+            return new Command(CommandType.EVENT, description, -1, null, from, to, -1);
         }
 
         /**
@@ -112,11 +115,15 @@ public class Parser {
          * @return Command to delete a task.
          */
         public static Command delete(int index) {
-            return new Command(CommandType.DELETE, null, index, null, null, null);
+            return new Command(CommandType.DELETE, null, index, null, null, null, -1);
         }
 
         public static Command find(String keyword) {
-            return new Command(CommandType.FIND, keyword, -1, null, null, null);
+            return new Command(CommandType.FIND, keyword, -1, null, null, null, -1);
+        }
+
+        public static Command remind(int daysAhead) {
+            return new Command(CommandType.REMIND, null, -1, null, null, null, daysAhead);
         }
     }
 
@@ -207,6 +214,24 @@ public class Parser {
                 throw new BotException("Oops - please add a keyword after 'find'.");
             }
             return Command.find(keyword);
+        }
+        if (input.equals("remind")) {
+            return Command.remind(7);
+        }
+        if (input.startsWith("remind ")) {
+            String daysToken = input.substring("remind".length()).trim();
+            if (daysToken.isEmpty()) {
+                return Command.remind(7);
+            }
+            try {
+                int daysAhead = Integer.parseInt(daysToken);
+                if (daysAhead < 0) {
+                    throw new BotException("Days must be 0 or more.");
+                }
+                return Command.remind(daysAhead);
+            } catch (NumberFormatException e) {
+                throw new BotException("Days must be a non-negative number.");
+            }
         }
 
         throw new BotException("Sorry, I don't understand your command. Please try again.");
