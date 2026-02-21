@@ -1,56 +1,30 @@
 # Zhbot User Guide
 
-Zhbot helps you manage tasks using a simple command format.
+// Update the title above to match the actual product name
 
-## Features
+// Product screenshot goes here
 
-### Add todo
-Command:
-`todo <description>`
+// Product intro goes here
 
-Example:
-`todo clean room`
+## Adding deadlines
 
-### Add deadline
-Command:
-`deadline <description> /by <yyyy-MM-dd>`
+// Describe the action and its outcome.
 
-Example:
-`deadline submit report /by 2026-02-25`
+// Give examples of usage
 
-### Add event
-Command:
-`event <description> /from <start> /to <end>`
+Example: `keyword (optional arguments)`
 
-Example:
-`event project meeting /from 2pm /to 4pm`
+// A description of the expected outcome goes here
 
-### List tasks
-Command:
-`list`
+```
+expected output
+```
 
-### Mark / unmark
-Commands:
-`mark <task-number>`
-`unmark <task-number>`
+## Feature ABC
 
-### Delete task
-Command:
-`delete <task-number>`
+// Feature details
 
-### Find tasks
-Command:
-`find <keyword>`
 
-### Remind upcoming deadlines
-Commands:
-`remind`
-`remind <days>`
+## Feature XYZ
 
-Behavior:
-- `remind` defaults to 7 days.
-- Shows upcoming unfinished deadline tasks due from today to today + days.
-
-Examples:
-- `remind`
-- `remind 3`
+// Feature details

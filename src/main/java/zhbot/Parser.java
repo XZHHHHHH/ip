@@ -226,11 +226,11 @@ public class Parser {
             try {
                 int daysAhead = Integer.parseInt(daysToken);
                 if (daysAhead < 0) {
-                    throw new BotException("Days must be 0 or more. Use: remind OR remind <days>.");
+                    throw new BotException("Days must be 0 or more.");
                 }
                 return Command.remind(daysAhead);
             } catch (NumberFormatException e) {
-                throw new BotException("Days must be a non-negative number. Use: remind OR remind <days>.");
+                throw new BotException("Days must be a non-negative number.");
             }
         }
 
