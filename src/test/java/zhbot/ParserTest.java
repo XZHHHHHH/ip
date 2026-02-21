@@ -144,6 +144,14 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_remindWithNegativeDays_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("remind -1"));
+        assertTrue(ex.getMessage().toLowerCase().contains("days"));
+    }
+
+    @Test
     public void parse_findWithoutKeyword_throwsBotException() {
         Parser parser = new Parser();
 
