@@ -14,6 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Dialog box component used to render user and bot chat messages.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -47,12 +50,26 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(flippedChildren);
     }
 
+    /**
+     * Creates a right-aligned dialog for user input.
+     *
+     * @param text Message text.
+     * @param image Avatar image.
+     * @return Styled dialog box for the user.
+     */
     public static DialogBox getUserDialog(String text, Image image) {
         DialogBox dialog = new DialogBox(text, image);
         dialog.applyUserStyling();
         return dialog;
     }
 
+    /**
+     * Creates a left-aligned dialog for bot responses.
+     *
+     * @param text Message text.
+     * @param image Avatar image.
+     * @return Styled dialog box for the bot.
+     */
     public static DialogBox getDarkraiDialog(String text, Image image) {
         DialogBox dialog = new DialogBox(text, image);
         dialog.flip();
