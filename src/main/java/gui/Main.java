@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,8 +9,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import zhbot.Zhbot;
-
-import java.io.IOException;
 
 /**
  * A GUI for Zhbot using FXML.
