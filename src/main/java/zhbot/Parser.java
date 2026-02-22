@@ -144,49 +144,55 @@ public class Parser {
         if (input.equals("list")) {
             return Command.list();
         }
+        if (input.equals("mark")) {
+            throw new BotException("Index must be a number.");
+        }
         if (input.startsWith("mark ")) {
             return Command.mark(parseIndexArgument(input, "mark"));
+        }
+        if (input.equals("unmark")) {
+            throw new BotException("Index must be a number.");
         }
         if (input.startsWith("unmark ")) {
             return Command.unmark(parseIndexArgument(input, "unmark"));
         }
-        if (input.equals("todo") || input.startsWith("todo")) {
+        if (input.equals("todo") || input.startsWith("todo ")) {
             if (input.length() <= 4) {
-                throw new BotException("Oops — please add some content after 'todo'.");
+                throw new BotException("Oops - please add some content after 'todo'.");
             }
-            String desc = input.split("todo ", 2)[1].trim();
+            String desc = input.substring("todo".length()).trim();
             if (desc.isEmpty()) {
-                throw new BotException("Oops — please add some content after 'todo'.");
+                throw new BotException("Oops - please add some content after 'todo'.");
             }
             return Command.todo(desc);
         }
-        if (input.startsWith("deadline")) {
-            String rest = input.split("deadline", 2)[1];
+        if (input.equals("deadline") || input.startsWith("deadline ")) {
+            String rest = input.substring("deadline".length());
             int byIndex = rest.indexOf(" /by ");
             if (byIndex == -1) {
-                throw new BotException("Oops — deadline must have /by yyyy-MM-dd.");
+                throw new BotException("Oops - deadline must have /by yyyy-MM-dd.");
             }
 
             String desc = rest.substring(0, byIndex).trim();
             String byStr = rest.substring(byIndex + 5).trim();
 
             if (desc.isEmpty()) {
-                throw new BotException("Oops — please add a description for deadline.");
+                throw new BotException("Oops - please add a description for deadline.");
             }
 
             try {
                 LocalDate by = LocalDate.parse(byStr);
                 return Command.deadline(desc, by);
             } catch (Exception e) {
-                throw new BotException("Oops — date must be yyyy-MM-dd (e.g., 2019-10-15).");
+                throw new BotException("Oops - date must be yyyy-MM-dd (e.g., 2019-10-15).");
             }
         }
-        if (input.startsWith("event")) {
-            String rest = input.split("event", 2)[1];
+        if (input.equals("event") || input.startsWith("event ")) {
+            String rest = input.substring("event".length());
             int fromIndex = rest.indexOf(" /from ");
             int toIndex = rest.indexOf(" /to ");
             if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex) {
-                throw new BotException("Oops — event must have /from ... /to ...");
+                throw new BotException("Oops - event must have /from ... /to ...");
             }
 
             String desc = rest.substring(0, fromIndex).trim();
@@ -194,22 +200,25 @@ public class Parser {
             String to = rest.substring(toIndex + 5).trim();
 
             if (desc.isEmpty()) {
-                throw new BotException("Oops — please add a description for event.");
+                throw new BotException("Oops - please add a description for event.");
             }
             if (from.isEmpty() || to.isEmpty()) {
-                throw new BotException("Oops — event must have both /from and /to values.");
+                throw new BotException("Oops - event must have both /from and /to values.");
             }
 
             return Command.event(desc, from, to);
         }
+        if (input.equals("delete")) {
+            throw new BotException("Index must be a number.");
+        }
         if (input.startsWith("delete ")) {
             return Command.delete(parseIndexArgument(input, "delete"));
         }
-        if (input.equals("find") || input.startsWith("find")) {
+        if (input.equals("find") || input.startsWith("find ")) {
             if (input.length() <= 4) {
                 throw new BotException("Oops - please add a keyword after 'find'.");
             }
-            String keyword = input.split("find ", 2)[1].trim();
+            String keyword = input.substring("find".length()).trim();
             if (keyword.isEmpty()) {
                 throw new BotException("Oops - please add a keyword after 'find'.");
             }
@@ -267,5 +276,3 @@ public class Parser {
         return parseIndex(argument.split("\\s+")[0]);
     }
 }
-
-

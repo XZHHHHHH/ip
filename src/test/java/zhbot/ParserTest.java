@@ -168,6 +168,30 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_todoWithoutSpaceAfterCommand_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("todoread book"));
+        assertTrue(ex.getMessage().toLowerCase().contains("don't understand"));
+    }
+
+    @Test
+    public void parse_findWithoutSpaceAfterCommand_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("findbook"));
+        assertTrue(ex.getMessage().toLowerCase().contains("don't understand"));
+    }
+
+    @Test
+    public void parse_markWithoutIndex_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () -> parser.parse("mark"));
+        assertTrue(ex.getMessage().toLowerCase().contains("index"));
+    }
+
+    @Test
     public void parse_unknownCommand_throwsBotException() {
         Parser parser = new Parser();
 

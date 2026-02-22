@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import zhbot.Zhbot;
 
 /**
@@ -64,5 +67,18 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDarkraiDialog(response, darkraiImage)
         );
         userInput.clear();
+        if (isByeCommand(input)) {
+            closeAfterDelay();
+        }
+    }
+
+    private boolean isByeCommand(String input) {
+        return input != null && input.trim().equals("bye");
+    }
+
+    private void closeAfterDelay() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }

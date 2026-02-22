@@ -112,6 +112,8 @@ public class Zhbot {
                 ui.showSaveError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showError("Index is out of range.");
+            } catch (RuntimeException e) {
+                ui.showError("Something went wrong while handling your command. Please try again.");
             }
         }
     }
@@ -194,6 +196,8 @@ public class Zhbot {
             return "Oops! I could not save your tasks to disk.";
         } catch (IndexOutOfBoundsException e) {
             return "Index is out of range.";
+        } catch (RuntimeException e) {
+            return "Something went wrong while handling your command. Please try again.";
         }
     }
 
