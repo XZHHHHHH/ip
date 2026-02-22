@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import zhbot.Zhbot;
 
@@ -30,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/User.png"));
     private final Image darkraiImage = new Image(this.getClass().getResourceAsStream("/Zh.png"));
 
+    /**
+     * Initializes UI bindings after FXML injection.
+     */
     @FXML
     public void initialize() {
         assert scrollPane != null : "ScrollPane should be injected by FXML.";
