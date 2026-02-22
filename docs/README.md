@@ -2,9 +2,13 @@
 
 Zhbot helps you track tasks with simple text commands.
 
+![Zhbot UI](Ui.png)
+
+Above is the current Zhbot GUI. Type your command in the input box and press `Enter` or click `Send`.
+
 ## Quick Start
 
-1. Launch the app.
+1. Launch the app by running `java -jar Zhbot.jar`.
 2. Enter one command per line in the input box.
 3. Read the bot response and continue.
 4. Use `bye` to exit.
