@@ -8,13 +8,12 @@ Above is the current Zhbot GUI. Type your command in the input box and press `En
 
 ## Quick Start
 
-1. Launch the app by running `java -jar Zhbot.jar`.
-2. Enter one command per line in the input box.
-3. Read the bot response and continue.
-4. Use `bye` to exit.
-
-Note:
-- In GUI mode, entering `bye` closes the window after a short delay.
+1. Ensure Java 17 is installed.
+2. Download the latest `Zhbot.jar` from the Releases.
+3. Launch the app by running `java -jar Zhbot.jar`.
+4. Enter one command per line in the input box.
+5. Read the bot response and continue.
+6. Use `bye` to exit.
 
 ## Available Commands
 
