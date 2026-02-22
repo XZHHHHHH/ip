@@ -45,6 +45,9 @@ public class MainWindow extends AnchorPane {
     public void setZhbot(Zhbot bot) {
         assert bot != null : "Bot instance should not be null.";
         zhbot = bot;
+        dialogContainer.getChildren().add(
+                DialogBox.getDarkraiDialog(zhbot.getWelcomeMessage(), darkraiImage)
+        );
     }
 
     /**

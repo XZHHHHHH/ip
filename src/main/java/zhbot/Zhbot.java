@@ -219,6 +219,27 @@ public class Zhbot {
         return removed;
     }
 
+    /**
+     * Returns the startup greeting and command guide.
+     *
+     * @return Greeting text shown when the app starts.
+     */
+    public String getWelcomeMessage() {
+        return "Hello! I'm ZH9072Bot\n"
+                + "I can help you manage your tasks.\n"
+                + "Available commands:\n"
+                + "  list\n"
+                + "  todo <description>\n"
+                + "  deadline <description> /by <yyyy-MM-dd>\n"
+                + "  event <description> /from <start> /to <end>\n"
+                + "  mark <task number>\n"
+                + "  unmark <task number>\n"
+                + "  delete <task number>\n"
+                + "  find <keyword>\n"
+                + "  remind [days]\n"
+                + "  bye";
+    }
+
     private String buildReminderResponse(int daysAhead) {
         List<Remind> reminders = tasks.findUpcomingReminders(LocalDate.now(), daysAhead);
         StringBuilder response = new StringBuilder(

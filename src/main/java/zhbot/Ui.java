@@ -26,7 +26,18 @@ public class Ui {
     public void showWelcome() {
         System.out.println(LINE);
         System.out.println("Hello! I'm ZH9072Bot");
-        System.out.println("What can I do for you?");
+        System.out.println("I can help you manage your tasks.");
+        System.out.println("Available commands:");
+        System.out.println("  list");
+        System.out.println("  todo <description>");
+        System.out.println("  deadline <description> /by <yyyy-MM-dd>");
+        System.out.println("  event <description> /from <start> /to <end>");
+        System.out.println("  mark <task number>");
+        System.out.println("  unmark <task number>");
+        System.out.println("  delete <task number>");
+        System.out.println("  find <keyword>");
+        System.out.println("  remind [days]");
+        System.out.println("  bye");
         System.out.println(LINE);
     }
 
