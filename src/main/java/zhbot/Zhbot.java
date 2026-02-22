@@ -232,16 +232,16 @@ public class Zhbot {
         return "Hello! I'm ZH9072Bot\n"
                 + "I can help you manage your tasks.\n"
                 + "Available commands:\n"
-                + "  list\n"
-                + "  todo <description>\n"
-                + "  deadline <description> /by <yyyy-MM-dd>\n"
-                + "  event <description> /from <start> /to <end>\n"
-                + "  mark <task number>\n"
-                + "  unmark <task number>\n"
-                + "  delete <task number>\n"
-                + "  find <keyword>\n"
-                + "  remind [days]\n"
-                + "  bye";
+                + "1. list\n"
+                + "2. todo <description>\n"
+                + "3. deadline <description> /by <yyyy-MM-dd>\n"
+                + "4. event <description> /from <start> /to <end>\n"
+                + "5. mark <task number>\n"
+                + "6. unmark <task number>\n"
+                + "7. delete <task number>\n"
+                + "8. find <keyword>\n"
+                + "9. remind [days]\n"
+                + "10. bye";
     }
 
     private String buildReminderResponse(int daysAhead) {

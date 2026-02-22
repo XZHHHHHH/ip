@@ -28,16 +28,16 @@ public class Ui {
         System.out.println("Hello! I'm ZH9072Bot");
         System.out.println("I can help you manage your tasks.");
         System.out.println("Available commands:");
-        System.out.println("  list");
-        System.out.println("  todo <description>");
-        System.out.println("  deadline <description> /by <yyyy-MM-dd>");
-        System.out.println("  event <description> /from <start> /to <end>");
-        System.out.println("  mark <task number>");
-        System.out.println("  unmark <task number>");
-        System.out.println("  delete <task number>");
-        System.out.println("  find <keyword>");
-        System.out.println("  remind [days]");
-        System.out.println("  bye");
+        System.out.println("1. list");
+        System.out.println("2. todo <description>");
+        System.out.println("3. deadline <description> /by <yyyy-MM-dd>");
+        System.out.println("4. event <description> /from <start> /to <end>");
+        System.out.println("5. mark <task number>");
+        System.out.println("6. unmark <task number>");
+        System.out.println("7. delete <task number>");
+        System.out.println("8. find <keyword>");
+        System.out.println("9. remind [days]");
+        System.out.println("10. bye");
         System.out.println(LINE);
     }
 
@@ -187,5 +187,3 @@ public class Ui {
         System.out.println(LINE);
     }
 }
-
-

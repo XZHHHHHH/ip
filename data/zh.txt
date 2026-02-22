@@ -1,5 +1,5 @@
 T | 0 | clean room
-T | 0 | return book
+T | 1 | return book
 T | 0 | clean room
 T | 0 | read book
 T | 0 | return book
@@ -9,3 +9,4 @@ T | 0 | sleep
 T | 0 | read book
 D | 0 | submit report | 2026-02-25
 T | 0 | 2
+T | 0 | 1

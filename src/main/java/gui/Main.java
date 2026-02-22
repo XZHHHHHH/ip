@@ -3,6 +3,7 @@ package gui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import zhbot.Zhbot;
@@ -24,7 +25,9 @@ public class Main extends Application {
             assert appRoot != null : "Main window root should load from FXML.";
             Scene scene = new Scene(appRoot);
             stage.setScene(scene);
-            stage.setTitle("Zhbot");
+            stage.setTitle("");
+            stage.getIcons().clear();
+            stage.getIcons().add(new WritableImage(1, 1));
             stage.setResizable(false);
             MainWindow controller = fxmlLoader.getController();
             assert controller != null : "Main window controller should be available after load.";

@@ -36,6 +36,7 @@ public class DialogBox extends HBox {
         assert displayPicture != null : "Display picture should be injected by FXML.";
         dialog.setText(text);
         displayPicture.setImage(image);
+        applySharedStyling();
     }
 
     private void flip() {
@@ -47,12 +48,46 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image);
+        DialogBox dialog = new DialogBox(text, image);
+        dialog.applyUserStyling();
+        return dialog;
     }
 
     public static DialogBox getDarkraiDialog(String text, Image image) {
         DialogBox dialog = new DialogBox(text, image);
         dialog.flip();
+        dialog.applyBotStyling();
         return dialog;
+    }
+
+    private void applySharedStyling() {
+        setSpacing(10);
+        dialog.setMaxWidth(260);
+        dialog.setStyle("-fx-background-radius: 16;"
+                + "-fx-padding: 10 14 10 14;"
+                + "-fx-font-size: 14px;");
+        displayPicture.setFitWidth(52);
+        displayPicture.setFitHeight(52);
+        displayPicture.setPreserveRatio(false);
+        displayPicture.setStyle("-fx-background-color: #ffffff;"
+                + "-fx-background-radius: 8;"
+                + "-fx-border-color: #c4d1e4;"
+                + "-fx-border-radius: 8;");
+    }
+
+    private void applyUserStyling() {
+        dialog.setStyle(dialog.getStyle()
+                + "-fx-background-color: #ffffff;"
+                + "-fx-text-fill: #1f2937;"
+                + "-fx-border-color: #c6d5ea;"
+                + "-fx-border-radius: 16;");
+    }
+
+    private void applyBotStyling() {
+        dialog.setStyle(dialog.getStyle()
+                + "-fx-background-color: #dbeaff;"
+                + "-fx-text-fill: #102a43;"
+                + "-fx-border-color: #9cb8e8;"
+                + "-fx-border-radius: 16;");
     }
 }
