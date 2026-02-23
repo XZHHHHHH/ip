@@ -100,6 +100,15 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_eventCommandWithInvalidFromTo_throwsBotException() {
+        Parser parser = new Parser();
+
+        BotException ex = assertThrows(BotException.class, () ->
+                parser.parse("event project meeting /from 10am! /to 12pm"));
+        assertTrue(ex.getMessage().toLowerCase().contains("event /from"));
+    }
+
+    @Test
     public void parse_remindWithoutDays_usesDefaultWindow() throws Exception {
         Parser parser = new Parser();
 

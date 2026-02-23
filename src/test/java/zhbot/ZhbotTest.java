@@ -1,6 +1,7 @@
 package zhbot;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,6 +52,17 @@ public class ZhbotTest {
         assertTrue(response.contains("upcoming deadlines"));
         assertTrue(response.contains("submit report"));
         assertTrue(response.contains("[R][D]"));
+    }
+
+    @Test
+    public void getResponse_findNoMatch_returnsOnlyNoMatchMessage() {
+        Path file = tempDir.resolve("zh-find.txt");
+        Zhbot bot = new Zhbot(file.toString());
+
+        bot.getResponse("todo read book");
+        String response = bot.getResponse("find xyz");
+
+        assertEquals("No matching tasks found.", response);
     }
 }
 

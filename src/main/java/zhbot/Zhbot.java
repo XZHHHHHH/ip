@@ -173,14 +173,13 @@ public class Zhbot {
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
             case FIND:
-                StringBuilder findResponse = new StringBuilder("Here are the matching tasks in your list:");
                 List<Task> matches = tasks.findByKeyword(cmd.description);
                 if (matches.isEmpty()) {
-                    findResponse.append("\nNo matching tasks found.");
-                } else {
-                    for (int i = 0; i < matches.size(); i++) {
-                        findResponse.append("\n").append(i + 1).append(".").append(matches.get(i));
-                    }
+                    return "No matching tasks found.";
+                }
+                StringBuilder findResponse = new StringBuilder("Here are the matching tasks in your list:");
+                for (int i = 0; i < matches.size(); i++) {
+                    findResponse.append("\n").append(i + 1).append(".").append(matches.get(i));
                 }
                 return findResponse.toString();
 

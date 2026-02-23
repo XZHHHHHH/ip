@@ -205,6 +205,10 @@ public class Parser {
             if (from.isEmpty() || to.isEmpty()) {
                 throw new BotException("Oops - event must have both /from and /to values.");
             }
+            if (!isValidEventTimeValue(from) || !isValidEventTimeValue(to)) {
+                throw new BotException(
+                        "Oops - event /from and /to can only use letters, numbers");
+            }
 
             return Command.event(desc, from, to);
         }
@@ -274,5 +278,12 @@ public class Parser {
             throw new BotException("Index must be a number.");
         }
         return parseIndex(argument.split("\\s+")[0]);
+    }
+
+    private boolean isValidEventTimeValue(String value) {
+        assert value != null : "Event time value should not be null.";
+        String trimmed = value.trim();
+        return trimmed.matches(".*[A-Za-z0-9].*")
+                && trimmed.matches("[A-Za-z0-9\\s:.,/\\-]+");
     }
 }
